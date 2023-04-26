@@ -23,7 +23,7 @@ fname = config['raw']
 montage = config['montage']
 rename_channels = config['rename_channels']
 
-raw = mne.io.read_epochs(fname)
+raw = mne.io.read_raw_fif(fname, preload=True)
 cap_montage = mne.channels.make_standard_montage(montage)
 rename_ch = dict((x.strip(), int(y.strip()))
                  for x, y in (element.split('-')
