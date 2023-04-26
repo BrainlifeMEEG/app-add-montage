@@ -21,14 +21,16 @@ with open(__location__+'/config.json') as config_json:
 
 fname = config['raw']
 montage = config['montage']
-rename_channels = config['rename_channels']
-
 raw = mne.io.read_raw_fif(fname, preload=True)
 cap_montage = mne.channels.make_standard_montage(montage)
-rename_ch = dict((x.strip(), int(y.strip()))
-                 for x, y in (element.split('-')
-                              for element in rename_channels.split(',')))
-cap_montage.rename_channels(rename_ch)
+
+if len(config['rename_channels']) >= 1:
+    rename_channels = config['rename_channels']
+    rename_ch = dict((x.strip(), int(y.strip())) 
+                     for x, y in (element.split('-')
+                                  for element in rename_channels.split(',')))
+    cap_montage.rename_channels(rename_ch)
+    
 raw.set_montage(cap_montage)
 # save mne/raw
 raw.save(os.path.join('out_dir','epo.fif'))
