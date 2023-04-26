@@ -29,7 +29,7 @@ rename_ch = dict((x.strip(), int(y.strip()))
                  for x, y in (element.split('-')
                               for element in rename_channels.split(',')))
 cap_montage.rename_channels(rename_ch)
-
+raw.set_montage(cap_montage)
 # save mne/raw
 raw.save(os.path.join('out_dir','epo.fif'))
 
