@@ -33,5 +33,5 @@ if len(config['rename_channels']) >= 1:
     
 raw.set_montage(cap_montage)
 # save mne/raw
-raw.save(os.path.join('out_dir','epo.fif'))
+raw.save(os.path.join('out_dir','raw.fif'))
 
