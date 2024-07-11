@@ -19,12 +19,15 @@ __location__ = os.path.realpath(
 with open(__location__+'/config.json') as config_json:
     config = json.load(config_json)
 
-
+# retrieve config.json parameters
 fname = config['raw']
 montage = config['montage']
+
+# read raw data and standard montage
 raw = mne.io.read_raw_fif(fname, preload=True)
 cap_montage = mne.channels.make_standard_montage(montage)
 
+# rename channels if needed
 if len(config['rename_channels']) >= 1:
     rename_channels = config['rename_channels']
     rename_ch = dict((x.strip(), y.strip()) 
@@ -35,19 +38,19 @@ if len(config['rename_channels']) >= 1:
 raw.set_montage(cap_montage)
 
 # plot montage
-#plt.figure(1)
-#fig, axs = plt.subplots(1,2)
+plt.figure(1)
+fig, axs = plt.subplots(1,2)
 
-#axs[0].set_title('Montage')
-#raw.plot_sensors(show_names=True, axes=axs[0])
+axs[0].set_title('Montage')
+raw.plot_sensors(show_names=True, axes=axs[0])
 
-#axs[1].set_title('Original: '+montage)
-#cap_montage.plot(axes=axs[1])
+axs[1].set_title('Original: '+montage)
+cap_montage.plot(axes=axs[1])
 
 # save figure
-#plt.savefig(os.path.join('out_figs','montage.png'))
+plt.savefig(os.path.join('out_figs','montage.png'))
 
 
 # save mne/raw
-raw.save(os.path.join('out_dir','raw.fif'))
+raw.save(os.path.join('out_dir','raw.fif'), overwrite=True)
 
