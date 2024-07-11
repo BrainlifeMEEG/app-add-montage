@@ -13,6 +13,7 @@
 
 # make output directory
 mkdir -p out_dir
+mkdir -p out_figs
 
 # run the actual python code
 singularity exec docker://brainlife/mne:1.0.2 python3 main.py
