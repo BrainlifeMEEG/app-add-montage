@@ -45,7 +45,7 @@ axs[0].set_title('Montage')
 raw.plot_sensors(show_names=True, axes=axs[0])
 
 axs[1].set_title('Original: '+montage)
-cap_montage.plot(axes=axs[1])
+cap_montage.plot()
 
 # save figure
 plt.savefig(os.path.join('out_figs','montage.png'))
