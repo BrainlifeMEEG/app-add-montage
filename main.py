@@ -38,7 +38,6 @@ if len(config['rename_channels']) >= 1:
 raw.set_montage(cap_montage)
 
 # plot montage
-plt.figure(1)
 fig, axs = plt.subplots(1,2)
 
 axs[0].set_title('Montage')
@@ -49,7 +48,6 @@ cap_montage.plot(axes=axs[1])
 
 # save figure
 plt.savefig(os.path.join('out_figs','montage.png'))
-
 
 # save mne/raw
 raw.save(os.path.join('out_dir','raw.fif'), overwrite=True)
