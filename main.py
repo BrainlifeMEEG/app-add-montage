@@ -19,12 +19,6 @@ __location__ = os.path.realpath(
 with open(__location__+'/config.json') as config_json:
     config = json.load(config_json)
 
-# if there's a "tags" field in the _inputs key of config.json, collect it in a list
-if '_inputs' in config:
-    if 'tags' in config['_inputs'][0]:
-        tags = config['_inputs'][0]['tags']
-
-
 # retrieve config.json parameters
 fname = config['raw']
 montage = config['montage']
@@ -58,12 +52,3 @@ plt.savefig(os.path.join('out_figs','montage.png'))
 # save mne/raw
 raw.save(os.path.join('out_dir','raw.fif'), overwrite=True)
 
-dict_json_product = {}
-
-# if in_tags is not empty, add it to the product.json
-if 'tags' in locals():
-    dict_json_product['tags'] = tags
-    
-
-with open('product.json', 'w') as outfile:
-    json.dump(dict_json_product, outfile)
