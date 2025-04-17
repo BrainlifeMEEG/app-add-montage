@@ -38,13 +38,11 @@ if len(config['rename_channels']) >= 1:
 raw.set_montage(cap_montage)
 
 # plot montage
-fig, axs = plt.subplots(1,2)
+fig, axs = plt.subplots(figsize=(15, 15))
 
-axs[0].set_title('Montage')
-raw.plot_sensors(show_names=True, axes=axs[0])
+plt.title('Montage')
+raw.plot_sensors(show_names=True, axes=axs)
 
-axs[1].set_title('Original: ' + montage)
-cap_montage.plot(axes=axs[1], show_names=True)
 
 # save figure
 plt.savefig(os.path.join('out_figs','montage.png'))
