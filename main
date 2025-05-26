@@ -16,7 +16,7 @@ mkdir -p out_dir
 mkdir -p out_figs
 
 # run the actual python code
-singularity exec docker://brainlife/mne:1.8.0 python3 main.py
+singularity exec docker://brainlife/mne:1.2.1 python3 main.py
 
 
 # Store montage.png figure
