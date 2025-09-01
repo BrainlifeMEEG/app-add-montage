@@ -1,0 +1,5 @@
+{
+    "raw": "/network/iss/cenir/analyse/meeg/BRAINLIFE/datasets/raw2.fif",
+    "montage": "GSN-HydroCel-257",
+    "rename_channels": "Cz-E257"
+}
