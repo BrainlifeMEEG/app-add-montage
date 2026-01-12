@@ -1,75 +1,84 @@
+# app-add-montage
+
 [![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.1-green.svg)](https://github.com/brain-life/abcd-spec)
 [![Run on Brainlife.io](https://img.shields.io/badge/Brainlife-bl.app.444-blue.svg)](https://doi.org/10.25663/bl.app.444)
 
-# app-add-montage
-This is an app that adds a selected montage to an (M/)EEG raw from the list provided in the MNE package.
+## Description
 
-1) Input file is mne/raw
-2) Input value of montage is selected from the dropdown menu (enum choice), and the optional choice of renaming any channels in the montage to correspond to the list of channels in the data is provided as a string.
-3) The output file is mne/raw, as well.
+Adds a standard electrode montage from the MNE-Python database to raw MEG/EEG data. This app sets channel locations for proper visualization, 3D topography mapping, and source localization. It also allows optional channel renaming to match the montage naming convention.
 
-### Authors
-- [Kamilya Salibayeva](ksalibay@iu.edu)
+## Inputs
 
-#### Copyright (c) 2022 brainlife.io The University of Texas at Austin
+- **raw**: MNE raw data file in `.fif` format
 
-### Funding Acknowledgement
-brainlife.io is publicly funded and for the sustainability of the project it is helpful to Acknowledge the use of the platform. We kindly ask that you acknowledge the funding below in your code and publications. Copy and past the following lines into your repository when using this code.
+## Outputs
+
+- **out_dir/raw.fif**: Raw data file with montage locations applied
+- **out_figs/montage.png**: Visualization of electrode positions on the scalp
+- **out_report/report.html**: QC report containing raw data summary and montage information
+- **product.json**: Metadata with channel information and montage details
+
+## Configuration Parameters
+
+### Required
+
+- `raw`: Path to the input MNE raw data file (`.fif` format)
+- `montage`: Name of the standard montage to apply. Common options include:
+  - `standard_1020`: Standard 10-20 system
+  - `standard_1005`: Standard 10-05 system
+  - `GSN-HydroCel-257`: 257-channel EGI montage
+  - `GSN-HydroCel-128`: 128-channel EGI montage
+  - See MNE documentation for complete list of available montages
+
+### Optional
+
+- `rename_channels`: Comma-separated list of channel renamings to apply to the montage. Format: `old_name-new_name,old_name2-new_name2` (e.g., "Cz-E257,Pz-E129")
+
+## Usage
+
+The app reads a raw MNE data file, applies the selected standard montage (optionally renaming channels), and generates:
+1. A modified `.fif` file with channel locations
+2. A PNG visualization of electrode positions
+3. An HTML report with QC information
+4. A product.json file with metadata
+
+Example configuration:
+```json
+{
+    "raw": "path/to/raw.fif",
+    "montage": "GSN-HydroCel-257",
+    "rename_channels": "Cz-E257,Pz-E129"
+}
+```
+
+## Technical Details
+
+- **Execution**: Python with MNE-Python and shared brainlife_utils library
+- **Data format**: MNE `.fif` format (compatible with all downstream Brainlife.io apps)
+- **Montage source**: MNE-Python's built-in standard montages
+- **Visualization**: 3D sensor plot with channel names
+- **Report generation**: Automatic HTML report with channel visualization
+
+## Authors
+
+- [Kamilya Salibayeva](https://github.com/KSalibay), Indiana University
+
+## Citations
+
+We kindly ask that you cite the following articles when publishing papers and code using this app:
+
+**brainlife.io: A decentralized and open source cloud platform to support neuroscience research**. Hayashi, S., Caron, B. A., et al. & Pestilli, F. (2023). ArXiv. https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10274934/
+
+**MEG and EEG data analysis with MNE-Python**. Gramfort A, et al. & Hämäläinen MS. (2013). Frontiers in Neuroscience, 7(267):1–13. https://doi.org/10.3389/fnins.2013.00267
+
+## Funding Acknowledgement
+
+brainlife.io is publicly funded and for the sustainability of the project we kindly ask that you acknowledge the following funding sources:
 
 [![NSF-BCS-1734853](https://img.shields.io/badge/NSF_BCS-1734853-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1734853)
 [![NSF-BCS-1636893](https://img.shields.io/badge/NSF_BCS-1636893-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1636893)
 [![NSF-ACI-1916518](https://img.shields.io/badge/NSF_ACI-1916518-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1916518)
 [![NSF-IIS-1912270](https://img.shields.io/badge/NSF_IIS-1912270-blue.svg)](https://nsf.gov/awardsearch/showAward?AWD_ID=1912270)
-[![NIH-NIBIB-R01EB029272](https://img.shields.io/badge/NIH_NIBIB-R01EB029272-green.svg)](https://grantome.com/grant/NIH/R01-EB029272-01)
+[![NIH-NIBIB-R01EB030896](https://img.shields.io/badge/NIH_NIBIB-R01EB030896-green.svg)](https://grantome.com/grant/NIH/R01-EB030896-01)
 
-### Citations
-We ask that you the following articles when publishing papers that used data, code or other resources created by the brainlife.io community.
-
-1. Avesani, P., McPherson, B., Hayashi, S. et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. Sci Data 6, 69 (2019). [https://doi.org/10.1038/s41597-019-0073-y](https://doi.org/10.1038/s41597-019-0073-y)
-
-
-## Running the App 
-
-### On Brainlife.io
-
-You can submit this App online at [https://doi.org/10.25663/bl.app.444](https://doi.org/10.25663/bl.app.444) via the "Execute" tab.
-
-### Running Locally (on your machine)
-
-1. git clone this repo.
-2. Inside the cloned directory, create `config.json` with something like the following content with paths to your input files.
-
-```json
-{
-  "t1": "t1.nii.gz"
-}
-```
-
-3. Launch the App by executing `main`
-
-```bash
-./main
-```
-
-### Sample Datasets
-
-If you don't have your own input file, you can download sample datasets from Brainlife.io, or you can use [Brainlife CLI](https://github.com/brain-life/cli).
-
-```
-npm install -g brainlife
-bl login
-mkdir input
-bl dataset download 5a0f0fad2c214c9ba8624376#5a050966eec2b300611abff2 && mv 5a0f0fad2c214c9ba8624376#5a050966eec2b300611abff2 .
-```
-
-## Output
-
-All output file (a resampled T1w NIFTI-1 file) will be generated inside the current working directory (pwd), inside a specifc directory called:
-
-```
-out_dir
-```
-
-### Dependencies
-
-This App requires MNE/Python to run.
+#### MIT Copyright (c) 2021 brainlife.io The University of Texas at Austin and Indiana University
