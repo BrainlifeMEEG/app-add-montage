@@ -102,6 +102,9 @@ if config.get('rename_channels', '') and config['rename_channels'] != 'None':
     montage_info_html += '</p>'
 report.add_html(title='Montage Details', html=montage_info_html)
 
+# Add montage figure to report
+report.add_image(montage_fig_path, title='Electrode Positions')
+
 # Add channel information to report
 channel_info_html = '<p><b>Channels in this file:</b></p>' + ', '.join(raw.ch_names)
 report.add_html(title='Channels', html=channel_info_html)
