@@ -83,10 +83,10 @@ plt.title(f'Electrode Montage: {montage_name}')
 raw.plot_sensors(show_names=True, axes=axs)
 plt.tight_layout()
 
-# Save figure
+# Save figure with base64 encoding
 montage_fig_path = os.path.join('out_figs', 'montage.png')
-plt.savefig(montage_fig_path, dpi=100)
-plt.close()
+montage_base64 = save_figure_with_base64(fig, montage_fig_path, 
+                                         dpi_file=150, dpi_base64=80)
 
 # == CREATE REPORT ==
 report = mne.Report(title='Add Montage Report')
@@ -123,8 +123,8 @@ add_raw_info_to_product(product_items, raw)
 montage_msg = f"Electrode montage '{montage_name}' successfully applied"
 add_info_to_product(product_items, montage_msg)
 
-# Add montage figure
-add_image_to_product(product_items, montage_fig_path, 'montage.png')
+# Add montage figure with base64 data
+add_image_to_product(product_items, 'Electrode Montage', base64_data=montage_base64)
 
 # Create the product.json file
 create_product_json(product_items)
