@@ -1,9 +1,5 @@
 {
-    "_comment": "Configuration for app-add-montage - Add electrode montage to MNE raw data",
     "raw": "/network/iss/cenir/analyse/meeg/BRAINLIFE/datasets/raw2.fif",
-    "raw_comment": "Path to input MNE raw data file (.fif format)",
     "montage": "GSN-HydroCel-257",
-    "montage_comment": "Name of standard montage to apply (e.g., 'standard_1020', 'standard_1005', 'GSN-HydroCel-257', 'GSN-HydroCel-128')",
-    "rename_channels": "Cz-E257",
-    "rename_channels_comment": "Optional comma-separated list of channel renamings (format: old_name-new_name,old_name2-new_name2). Leave empty or use 'None' if not needed."
+    "rename_channels": "Cz-E257"
 }
