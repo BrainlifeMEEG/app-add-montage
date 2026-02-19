@@ -122,7 +122,7 @@ add_raw_info_to_product(product_items, raw)
 
 # Add montage information
 montage_msg = f"Electrode montage '{montage_name}' successfully applied"
-add_info_to_product(product_items, montage_msg)
+add_info_to_product(product_items, montage_msg, msg_type='success')
 
 # Add montage figure with base64 data
 add_image_to_product(product_items, 'Electrode Montage', base64_data=montage_base64)
