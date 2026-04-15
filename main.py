@@ -89,6 +89,11 @@ montage_fig_path = os.path.join('out_figs', 'montage.png')
 montage_base64 = save_figure_with_base64(fig, montage_fig_path, 
                                          dpi_file=150, dpi_base64=80)
 
+# == CREATE PSD PLOT ==
+fig = raw.compute_psd().plot(exclude='bads', show=False)
+fig.savefig(os.path.join('out_figs', 'psd.png'), dpi=100, bbox_inches='tight')
+plt.close(fig)
+
 # == CREATE REPORT ==
 report = mne.Report(title='Add Montage Report')
 report.add_raw(raw=raw, title='Raw Data with Montage')
@@ -126,6 +131,11 @@ add_info_to_product(product_items, montage_msg, msg_type='success')
 
 # Add montage figure with base64 data
 add_image_to_product(product_items, 'Electrode Montage', base64_data=montage_base64)
+
+# Add PSD plot if it exists
+psd_image_path = os.path.join('out_figs', 'psd.png')
+if os.path.exists(psd_image_path):
+    add_image_to_product(product_items, name='Power Spectral Density (PSD)', filepath=psd_image_path)
 
 # Create the product.json file
 create_product_json(product_items)
