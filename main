@@ -16,18 +16,5 @@ mkdir -p out_dir
 mkdir -p out_figs
 
 # run the actual python code
-singularity exec docker://brainlife/mne:1.2.1 python3 main.py
+singularity exec docker://aunnikri642/app-freesurfer-mne-source-recon python3 main.py
 
-
-# Store montage.png figure
-cat << EOF > product.json
-{
-    "brainlife": [
-       { 
-           "type": "image/png", 
-	       "name": "Montage",
-           "base64": "$(base64 -w 0 out_figs/montage.png)"
-       }
-]
-}
-EOF
