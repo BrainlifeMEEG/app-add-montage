@@ -90,6 +90,7 @@ montage_base64 = save_figure_with_base64(fig, montage_fig_path,
                                          dpi_file=150, dpi_base64=80)
 
 # == CREATE PSD PLOT ==
+print("Computing PSD and generating report...", flush=True)
 fig = raw.compute_psd().plot(exclude='bads', show=False)
 fig.savefig(os.path.join('out_figs', 'psd.png'), dpi=100, bbox_inches='tight')
 plt.close(fig)
